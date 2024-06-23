@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,9 +18,11 @@ namespace KursachAnna
 {
     public partial class menu : UserControl
     {
+        public Registrartion Authorization { get; private set; }
         public menu()
         {
             InitializeComponent();
+            Authorization = new Registrartion();
         }
 
         //запуск списка товаров для всадника
@@ -27,6 +30,17 @@ namespace KursachAnna
         {
             MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
             mainWindow.OknoToShow.Content = new ForVsadnikTovarsList();
+        }
+
+        private void Authorization_UserAuthenticated(object sender, UserAuthenticatedEventArgs e)
+        {
+            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+            if (mainWindow != null)
+            {
+                mainWindow.SetAuthenticatedUser(e.AuthenticatedUser);
+                menu mainMenu = new menu();
+                mainWindow.OknoToShow.Content = mainMenu;
+            }
         }
 
         private void OpenHorseTovarsList(object sender, RoutedEventArgs e)
