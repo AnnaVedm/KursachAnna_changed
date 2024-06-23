@@ -24,7 +24,8 @@ namespace KursachAnna
 
         private string _username;
         private Visibility _buttonInShow;
-        private Visibility _buttonOutShow;
+        private Visibility _buttonOutShow = Visibility.Collapsed
+            ;
 
         public string Username
         {
